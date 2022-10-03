@@ -19,7 +19,9 @@ export default function Home() {
   const etherscan = process.env.NEXT_PUBLIC_ETHERSCAN;
 
   const { address } = useAccount();
-  const { data: block } = useBlockNumber();
+  const { data: block } = useBlockNumber({
+    chainId: 5,
+  });
   const { chain } = useNetwork();
 
   return (

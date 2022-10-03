@@ -21,7 +21,7 @@ export default function Mint() {
 
   // write with mint
   const { config: mintConfig } = usePrepareContractWrite({
-    addressOrName: contract,
+    addressOrName: `${contract}`,
     contractInterface: abi.abi,
     functionName: `mint`,
     args: [encodedMessage],
@@ -70,7 +70,7 @@ export default function Mint() {
         <p>
           Tx:{` `}
           <Link href={etherscan + `tx/` + mintData.hash} passHref>
-            <a>{txData?.transactionHash}</a>
+            <a target="_blank">{txData?.transactionHash}</a>
           </Link>
         </p>
       </div>

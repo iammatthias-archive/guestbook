@@ -5,6 +5,7 @@ import {
   RainbowKitProvider,
   lightTheme,
 } from '@rainbow-me/rainbowkit';
+import { providers } from 'ethers';
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
@@ -14,12 +15,11 @@ type Props = {
 };
 
 export default function Web3Provider({ children }: Props) {
-  const { chains, provider } = configureChains(
+  const alchemy = process.env.NEXT_PUBLIC_ALCHEMY;
+
+  const { chains } = configureChains(
     [chain.mainnet, chain.goerli],
-    [
-      alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY }),
-      publicProvider(),
-    ],
+    [alchemyProvider({ apiKey: alchemy }), publicProvider()],
   );
 
   const { connectors } = getDefaultWallets({
@@ -30,7 +30,9 @@ export default function Web3Provider({ children }: Props) {
   const wagmiClient = createClient({
     autoConnect: false,
     connectors,
-    provider,
+    provider(config) {
+      return new providers.AlchemyProvider(config.chainId, alchemy);
+    },
   });
 
   return (

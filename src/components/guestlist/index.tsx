@@ -48,21 +48,22 @@ export default function Guestlist() {
           <div key={index} className={guestWrapper}>
             <p className={`${address} ${overflow}`}>
               <Link href={etherscan + `address/` + guest[0]} passHref>
-                <a>
+                <a target="_blank">
                   <ENS address={guest[0]} />
                 </a>
               </Link>
             </p>
             <p className={block}>
-              <Link href={etherscan + `block/` + guest[2]} passHref>
-                <a>@ {guest[2]}</a>
+              {/* <Link href={etherscan + `block/` + guest[2]} passHref> */}
+              <Link href={`${etherscan}/block/${guest[2]}`} passHref>
+                <a target="_blank">{guest[2]}</a>
               </Link>
             </p>
             <p className={message}>{guest[1]}</p>
             <p>
               <small>
-                <Link href={opensea + contract + `/` + index} passHref>
-                  <a>opensea</a>
+                <Link passHref href={`${opensea}/${contract}/${index}`}>
+                  <a target="_blank">opensea</a>
                 </Link>
               </small>
             </p>
