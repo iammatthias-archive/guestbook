@@ -14,6 +14,7 @@ export default function Guestlist() {
     data: allGuests,
     isLoading,
     isError,
+    refetch,
   } = useContractRead({
     addressOrName: `${contract}`,
     contractInterface: abi.abi,
@@ -26,7 +27,7 @@ export default function Guestlist() {
     addressOrName: `${contract}`,
     contractInterface: abi.abi,
     eventName: `NewGuest`,
-    listener: (event) => console.log(event),
+    listener: () => refetch,
   });
 
   if (isLoading) {

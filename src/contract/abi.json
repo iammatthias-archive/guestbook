@@ -83,26 +83,7 @@
     },
     {
       "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "string",
-          "name": "author",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "internalType": "string",
-          "name": "message",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "internalType": "string",
-          "name": "timestamp",
-          "type": "string"
-        }
-      ],
+      "inputs": [],
       "name": "NewGuest",
       "type": "event"
     },
