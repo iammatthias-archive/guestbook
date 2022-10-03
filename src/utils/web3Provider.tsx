@@ -18,7 +18,7 @@ export default function Web3Provider({ children }: Props) {
   const alchemy = process.env.NEXT_PUBLIC_ALCHEMY;
 
   const { chains } = configureChains(
-    [chain.mainnet, chain.goerli],
+    [chain.goerli],
     [alchemyProvider({ apiKey: alchemy }), publicProvider()],
   );
 
