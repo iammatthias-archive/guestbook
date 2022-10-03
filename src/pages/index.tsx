@@ -1,73 +1,57 @@
-import Head from 'next/head';
-import Image from 'next/image';
-
-import styles from '@/styles/Home.module.css';
+import Link from 'next/link';
+import { useAccount, useBlockNumber, useNetwork } from 'wagmi';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import Info from '@/components/info';
+import Guestlist from '@/components/guestlist';
+import Mint from '@/components/mint';
+import {
+  listSection,
+  meta,
+  metaItem,
+  overflow,
+  section,
+  stickySection,
+} from '@/styles/styles.css';
 
 export default function Home() {
+  const contract = `0x68f682a56C210752d055Dc46A15d60149a291524`;
+  const etherscan = `https://goerli.etherscan.io/`;
+  const { address } = useAccount();
+  const { data: block } = useBlockNumber();
+  const { chain } = useNetwork();
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>TypeScript starter for Next.js</title>
-        <meta
-          name="description"
-          content="TypeScript starter for Next.js that includes all you need to build amazing apps"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{` `}
-          <code className={styles.code}>src/pages/index.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=typescript-nextjs-starter"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
+    <>
+      <section className={`${section} ${stickySection}`}>
+        <Info />
+        <ConnectButton chainStatus="none" />
+        {address && <Mint />}
+      </section>
+      <section className={`${section} ${listSection}`}>
+        <div className={meta}>
+          <div className={metaItem}>
+            <h4>Contract</h4>
+            <p className={overflow}>
+              <Link href={etherscan + `address/` + contract} passHref>
+                <a>{contract}</a>
+              </Link>
             </p>
-          </a>
+          </div>
+          {block && (
+            <div className={metaItem}>
+              <h4>Block</h4>
+              <p>{block}</p>
+            </div>
+          )}
+          {chain && (
+            <div className={metaItem}>
+              <h4>Chain</h4>
+              <p>{chain.name}</p>
+            </div>
+          )}
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=typescript-nextjs-starter"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{` `}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
-    </div>
+        <Guestlist />
+      </section>
+    </>
   );
 }
