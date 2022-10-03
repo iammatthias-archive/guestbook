@@ -194,6 +194,11 @@
               "internalType": "string",
               "name": "timestamp",
               "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "guestId",
+              "type": "uint256"
             }
           ],
           "internalType": "struct TheGuestBook.Guest[]",
@@ -247,6 +252,11 @@
           "internalType": "string",
           "name": "timestamp",
           "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "guestId",
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",

@@ -51,6 +51,7 @@ export default function Guestlist() {
 
   if (allGuests) {
     const guestlist = allGuests.slice().reverse();
+
     return (
       <>
         {guestlist.map((guest: any, index: number) => (
@@ -71,7 +72,7 @@ export default function Guestlist() {
             <p className={message}>{guest[1]}</p>
             <p>
               <small>
-                <Link passHref href={`${opensea}${contract}/${index}`}>
+                <Link passHref href={`${opensea}${contract}/${guest[3]}`}>
                   <a target="_blank">opensea</a>
                 </Link>
               </small>
