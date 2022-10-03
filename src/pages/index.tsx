@@ -4,6 +4,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Info from '@/components/info';
 import Guestlist from '@/components/guestlist';
 import Mint from '@/components/mint';
+
 import {
   listSection,
   meta,
@@ -14,8 +15,9 @@ import {
 } from '@/styles/styles.css';
 
 export default function Home() {
-  const contract = `0x68f682a56C210752d055Dc46A15d60149a291524`;
-  const etherscan = `https://goerli.etherscan.io/`;
+  const contract = process.env.NEXT_PUBLIC_CONTRACT;
+  const etherscan = process.env.NEXT_PUBLIC_ETHERSCAN;
+
   const { address } = useAccount();
   const { data: block } = useBlockNumber();
   const { chain } = useNetwork();

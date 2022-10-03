@@ -6,9 +6,9 @@ import ENS from '@/components/ens';
 import Link from 'next/link';
 
 export default function Guestlist() {
-  const contract = `0x68f682a56C210752d055Dc46A15d60149a291524`;
-  const etherscan = `https://goerli.etherscan.io/`;
-  const opensea = `https://testnets.opensea.io/assets/goerli/`;
+  const contract = process.env.NEXT_PUBLIC_CONTRACT;
+  const etherscan = process.env.NEXT_PUBLIC_ETHERSCAN;
+  const opensea = process.env.NEXT_PUBLIC_OPENSEA;
 
   const {
     data: allGuests,

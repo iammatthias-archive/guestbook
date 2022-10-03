@@ -16,11 +16,14 @@ type Props = {
 export default function Web3Provider({ children }: Props) {
   const { chains, provider } = configureChains(
     [chain.mainnet, chain.goerli],
-    [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()],
+    [
+      alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY }),
+      publicProvider(),
+    ],
   );
 
   const { connectors } = getDefaultWallets({
-    appName: `My RainbowKit App`,
+    appName: `The Guestbook`,
     chains,
   });
 
