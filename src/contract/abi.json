@@ -358,7 +358,7 @@
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "_guestId",
+          "name": "_g",
           "type": "uint256"
         },
         {
