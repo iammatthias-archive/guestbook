@@ -37,7 +37,7 @@ export default function Home() {
             <h4>Contract</h4>
             <p className={overflow}>
               <Link href={etherscan + `address/` + contract} passHref>
-                <a>{contract}</a>
+                <a target="_blank">{contract}</a>
               </Link>
             </p>
           </div>

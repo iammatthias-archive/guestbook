@@ -1,4 +1,4 @@
-import { useContractRead } from 'wagmi';
+import { useContractRead, useContractEvent } from 'wagmi';
 import abi from '@/contract/abi.json';
 import { guestWrapper, address, block, message } from './guestlist.css';
 import { overflow } from '@/styles/styles.css';
@@ -15,15 +15,19 @@ export default function Guestlist() {
     isLoading,
     isError,
   } = useContractRead({
-    addressOrName: contract,
+    addressOrName: `${contract}`,
     contractInterface: abi.abi,
     functionName: `getAllGuests`,
     cacheOnBlock: true,
-
-    // watch: true,
-    // cacheTime: 2_000,
     chainId: 5,
   } as any);
+
+  useContractEvent({
+    addressOrName: `${contract}`,
+    contractInterface: abi.abi,
+    eventName: `NewGuest`,
+    listener: (event) => console.log(event),
+  });
 
   if (isLoading) {
     return (
@@ -55,14 +59,14 @@ export default function Guestlist() {
             </p>
             <p className={block}>
               {/* <Link href={etherscan + `block/` + guest[2]} passHref> */}
-              <Link href={`${etherscan}/block/${guest[2]}`} passHref>
+              <Link href={`${etherscan}block/${guest[2]}`} passHref>
                 <a target="_blank">{guest[2]}</a>
               </Link>
             </p>
             <p className={message}>{guest[1]}</p>
             <p>
               <small>
-                <Link passHref href={`${opensea}/${contract}/${index}`}>
+                <Link passHref href={`${opensea}${contract}/${index}`}>
                   <a target="_blank">opensea</a>
                 </Link>
               </small>

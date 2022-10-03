@@ -45,26 +45,13 @@ contract TheGuestBook is ERC721, Ownable {
   }
 
   // Emitted when a new guest is recorded
-  event NewGuest(string author, string message, string timestamp);
+  event NewGuest();
 
   Guest[] public guests;
 
   /// @notice returns all guests
   function getAllGuests() public view returns (Guest[] memory) {
     return guests;
-  }
-
-  function addGuest(string memory _m) private {
-    // struct the guest values
-    string memory _a = Strings.toHexString(uint256(uint160(msg.sender))); // address as string
-    string memory _t = Strings.toString(block.number); // block number as string
-
-    // emit event for new guest
-    Guest memory g = Guest(_a, _m, _t);
-    guests.push(g);
-    emit NewGuest(_a, _m, _t);
-
-    _tokenMetadata[tokenId] = [_a, _m];
   }
 
   /// @notice write a message to the blockchain and get an nft
@@ -75,15 +62,22 @@ contract TheGuestBook is ERC721, Ownable {
       _mBytes.length <= 140,
       'Message should be less than 140 characters.'
     );
-
     require(
       testStr(_mBytes),
       'Message contains invalid characters. Allowed: [0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.," "]'
     );
 
-    addGuest(_m);
+    // guest data
+    string memory _a = Strings.toHexString(uint256(uint160(msg.sender))); // address as string
+    string memory _t = Strings.toString(block.number); // block number as string
+    Guest memory _g = Guest(_a, _m, _t);
+    guests.push(_g);
+
+    // token metadata
+    _tokenMetadata[tokenId] = [_a, _m];
     _mint(msg.sender, tokenId);
     tokenId++;
+    emit NewGuest();
   }
 
   // validate message input
